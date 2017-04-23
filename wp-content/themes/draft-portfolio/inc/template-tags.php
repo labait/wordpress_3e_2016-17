@@ -1,10 +1,10 @@
 <?php
 /**
- * Custom template tags for this theme.
+ * Custom template tags for this theme
  *
  * Eventually, some of the functionality here could be replaced by core features.
  *
- * @package draft-portfolio
+ * @package draft_portfolio
  */
 
 if ( ! function_exists( 'draft_portfolio_posted_on' ) ) :
@@ -45,7 +45,7 @@ if ( ! function_exists( 'draft_portfolio_entry_footer' ) ) :
  */
 function draft_portfolio_entry_footer() {
 	// Hide category and tag text for pages.
-	if ( 'post' == get_post_type() ) {
+	if ( 'post' === get_post_type() ) {
 		/* translators: used between list items, there is a space after the comma */
 		$categories_list = get_the_category_list( esc_html__( ', ', 'draft-portfolio' ) );
 		if ( $categories_list && draft_portfolio_categorized_blog() ) {
@@ -61,14 +61,22 @@ function draft_portfolio_entry_footer() {
 
 	if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
 		echo '<span class="comments-link">';
-		comments_popup_link( esc_html__( 'Leave a comment', 'draft-portfolio' ), esc_html__( '1 Comment', 'draft-portfolio' ), esc_html__( '% Comments', 'draft-portfolio' ) );
+		/* translators: %s: post title */
+		comments_popup_link( sprintf( wp_kses( __( 'Leave a Comment<span class="screen-reader-text"> on %s</span>', 'draft-portfolio' ), array( 'span' => array( 'class' => array() ) ) ), get_the_title() ) );
 		echo '</span>';
 	}
 
-	edit_post_link( esc_html__( 'Edit', 'draft-portfolio' ), '<span class="edit-link">', '</span>' );
+	edit_post_link(
+		sprintf(
+			/* translators: %s: Name of current post */
+			esc_html__( 'Edit %s', 'draft-portfolio' ),
+			the_title( '<span class="screen-reader-text">"', '"</span>', false )
+		),
+		'<span class="edit-link">',
+		'</span>'
+	);
 }
 endif;
-
 
 /**
  * Returns true if a blog has more than 1 category.
@@ -81,7 +89,6 @@ function draft_portfolio_categorized_blog() {
 		$all_the_cool_cats = get_categories( array(
 			'fields'     => 'ids',
 			'hide_empty' => 1,
-
 			// We only need to know if there is more than one category.
 			'number'     => 2,
 		) );
@@ -113,3 +120,10 @@ function draft_portfolio_category_transient_flusher() {
 }
 add_action( 'edit_category', 'draft_portfolio_category_transient_flusher' );
 add_action( 'save_post',     'draft_portfolio_category_transient_flusher' );
+
+function draft_portfolio_category(){
+
+$category = get_the_category();
+if ($category) {
+  echo '<a href="' . get_category_link( $category[0]->term_id ) . '" title="' . sprintf( __( "View all posts in %s" ,'draft-portfolio'), $category[0]->name ) . '" ' . '>' . $category[0]->name.'</a> ';
+}}

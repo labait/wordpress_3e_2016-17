@@ -1,36 +1,52 @@
 <?php
 /**
- * Template part for displaying posts.
+ * Template part for displaying posts
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
- * @package draft-portfolio
+ * @package draft_portfolio
  */
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'portfolio-entry'); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+		<div class='post-thumb'>
+				
+				<?php the_post_thumbnail('full'); ?>
+				
+		</div>
 	<header class="entry-header">
-		
+		<?php
+		if ( is_single() ) :
+			the_title( '<h1 class="entry-title">', '</h1>' );
+		else :
+			the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
+		endif;
 
-		<?php if ( 'post' == get_post_type() ) : ?>
+		if ( 'post' === get_post_type() ) : ?>
 		<div class="entry-meta">
-			<?php //draft_portfolio_posted_on(); ?>
+			<?php draft_portfolio_posted_on(); ?>
 		</div><!-- .entry-meta -->
-		<?php endif; ?>
+		<?php
+		endif; ?>
 	</header><!-- .entry-header -->
 
 	<div class="entry-content">
-	
-		<a href="<?php the_permalink(); ?>" class="th" title="<?php the_title_attribute(); ?>" >
-		<?php the_post_thumbnail('draft-portfolio-thumb-large'); ?>
+		<?php
+			the_content( sprintf(
+				/* translators: %s: Name of current post. */
+				wp_kses( __( 'Continue reading %s <span class="meta-nav">&rarr;</span>', 'draft-portfolio' ), array( 'span' => array( 'class' => array() ) ) ),
+				the_title( '<span class="screen-reader-text">"', '"</span>', false )
+			) );
 
-		<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
-		</a>
-
+			wp_link_pages( array(
+				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'draft-portfolio' ),
+				'after'  => '</div>',
+			) );
+		?>
 	</div><!-- .entry-content -->
 
 	<footer class="entry-footer">
-		<?php //draft_portfolio_entry_footer(); ?>
+		<?php draft_portfolio_entry_footer(); ?>
 	</footer><!-- .entry-footer -->
 </article><!-- #post-## -->

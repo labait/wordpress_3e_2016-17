@@ -63,29 +63,17 @@ Genericons icon font, Copyright 2013 Automattic
 Genericons are licensed under the terms of the GNU GPL, Version 2 (or later)
 Source: http://www.genericons.com
 
- Masonry PACKAGED v3.3.1
- * Cascading grid layout library
- * http://masonry.desandro.com
- * MIT License
- * by David DeSandro
-
-
-Font Awesome by Dave Gandy
-Font Awesome is licensed under the following: (Font: SIL OFL 1.1, CSS: MIT License)
-http://fortawesome.github.io/Font-Awesome/
-
 The HTML5 Shiv by aFarkas Copyright (c) 2014 Alexander Farkas (aFarkas).
 The HTML5 Shiv is licensed under the terms of the GNU GPLv2 
 https://github.com/aFarkas/html5shiv 
 
-Slick Nav
-https://github.com/ComputerWolf/SlickNav
-Slick Nav is licensed under the terms of the MIT-LICENSE
-https://github.com/ComputerWolf/SlickNav/blob/master/MIT-LICENSE.txt
 
 
 
 All demo images are from
+https://unsplash.com/?photo=5tKtllqhx8U
+https://unsplash.com/?photo=GsQwzPaqGB0
+https://unsplash.com/search/typing?photo=npxXWgQ33ZQ
 http://librestock.com/ with CC 1.0 licence https://creativecommons.org/publicdomain/zero/1.0/
 https://stocksnap.io under CCO licence https://stocksnap.io/license
 http://bossfight.co/ipad-macbook-pro-iphone-imac/

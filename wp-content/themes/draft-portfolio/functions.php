@@ -1,10 +1,10 @@
 <?php
 /**
- * draft functions and definitions.
+ * draft portfolio functions and definitions
  *
- * @link https://codex.wordpress.org/Functions_File_Explained
+ * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
- * @package draft-portfolio
+ * @package draft_portfolio
  */
 
 if ( ! function_exists( 'draft_portfolio_setup' ) ) :
@@ -19,8 +19,8 @@ function draft_portfolio_setup() {
 	/*
 	 * Make theme available for translation.
 	 * Translations can be filed in the /languages/ directory.
-	 * If you're building a theme based on draft, use a find and replace
-	 * to change 'draft-portfolio' to the name of your theme in all the template files
+	 * If you're building a theme based on draft portfolio, use a find and replace
+	 * to change 'draft-portfolio' to the name of your theme in all the template files.
 	 */
 	load_theme_textdomain( 'draft-portfolio', get_template_directory() . '/languages' );
 
@@ -41,15 +41,12 @@ function draft_portfolio_setup() {
 	 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 	 */
 	add_theme_support( 'post-thumbnails' );
-	
-	// Thumbnail sizes
-
-		add_image_size( 'draft-portfolio-thumb-large', 700, 450 );
+    add_image_size( 'draft-portfolio-thumbnail', 400, 320, TRUE );
 
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
-		'primary' => esc_html__( 'Primary Menu', 'draft-portfolio' ),
-		'footer' => esc_html__( 'Footer Menu', 'draft-portfolio' ),
+		'primary' => esc_html__( 'Primary', 'draft-portfolio' ),
+		'social' => esc_html__( 'Social', 'draft-portfolio' )
 	) );
 
 	/*
@@ -64,25 +61,27 @@ function draft_portfolio_setup() {
 		'caption',
 	) );
 
-	/*
-	 * Enable support for Post Formats.
-	 * See https://developer.wordpress.org/themes/functionality/post-formats/
-	 */
-	add_theme_support( 'post-formats', array(
-		'aside',
-		'image',
-		'video',
-		'quote',
-		'link',
-	) );
-
 	// Set up the WordPress core custom background feature.
 	add_theme_support( 'custom-background', apply_filters( 'draft_portfolio_custom_background_args', array(
-		'default-color' => 'f0f0f0',
+		'default-color' => 'ffffff',
 		'default-image' => '',
 	) ) );
+
+	// Add theme support for selective refresh for widgets.
+	add_theme_support( 'customize-selective-refresh-widgets' );
 }
-endif; // draft_portfolio_setup
+        add_theme_support( 'custom-logo' );
+
+         // Custom Site Logo
+         add_theme_support( 'site-logo', array(
+        'header-text' => array(
+            'site-title',
+            'tagline',
+        ),
+        'size' => 'medium',
+    ) );
+
+endif;
 add_action( 'after_setup_theme', 'draft_portfolio_setup' );
 
 /**
@@ -93,7 +92,7 @@ add_action( 'after_setup_theme', 'draft_portfolio_setup' );
  * @global int $content_width
  */
 function draft_portfolio_content_width() {
-	$GLOBALS['content_width'] = apply_filters( 'draft_portfolio_content_width', 960 );
+	$GLOBALS['content_width'] = apply_filters( 'draft_portfolio_content_width', 640 );
 }
 add_action( 'after_setup_theme', 'draft_portfolio_content_width', 0 );
 
@@ -106,9 +105,9 @@ function draft_portfolio_widgets_init() {
 	register_sidebar( array(
 		'name'          => esc_html__( 'Sidebar', 'draft-portfolio' ),
 		'id'            => 'sidebar-1',
-		'description'   => '',
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</aside>',
+		'description'   => esc_html__( 'Add widgets here.', 'draft-portfolio' ),
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
 	) );
@@ -118,36 +117,19 @@ add_action( 'widgets_init', 'draft_portfolio_widgets_init' );
 /**
  * Enqueue scripts and styles.
  */
-function draft_portfolio_custom_font() {
-	$query_args = array(
-		'family' => 'Crimson+Text:400,700|Montserrat:700',
-		'subset' => 'latin,latin-ext',
-	);
-	wp_register_style( 'draft_portfolio_custom_font', add_query_arg( $query_args, "//fonts.googleapis.com/css" ), array(), null );
-            }
-            
-add_action('wp_enqueue_scripts', 'draft_portfolio_custom_font');
-
 function draft_portfolio_scripts() {
-	wp_enqueue_style( 'draft-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'draft-portfolio-grid', get_template_directory_uri() . '/css/grid.css');
 
-	wp_enqueue_style( 'draft-grid', get_template_directory_uri() . '/css/grid.css' );
+	wp_enqueue_style( 'draft-portfolio-style', get_stylesheet_uri() );
 
-	wp_enqueue_style( 'draft-menu', get_template_directory_uri() . '/css/mobilemenu.css' );
+	wp_enqueue_script('jquery');
+	wp_enqueue_script('masonry');
 
-	wp_enqueue_style( 'draft-icons', get_template_directory_uri() . '/css/css/font-awesome.min.css' );
+	wp_enqueue_script( 'draft-portfolio-navigation', get_template_directory_uri() . '/js/navigation.js', array( 'jquery' ), '20151215', true );
 
-	wp_enqueue_script( 'jquery');
-	wp_enqueue_script( 'jquery-masonry');	
+	wp_enqueue_script( 'draft-portfolio-scripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ), '20151218', true );
 
-	wp_enqueue_script( 'draft-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
-
-	wp_enqueue_script( 'draft-mobilemenu', get_template_directory_uri() . '/js/slickmenu.js', array(), '20170206', true );
-
-	wp_enqueue_script( 'draft-script', get_template_directory_uri() . '/js/scripts.js', array(), '20170203', true );
-
-
-	wp_enqueue_script( 'draft-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
+	wp_enqueue_script( 'draft-portfolio-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -158,6 +140,7 @@ add_action( 'wp_enqueue_scripts', 'draft_portfolio_scripts' );
 /**
  * Implement the Custom Header feature.
  */
+require get_template_directory() . '/inc/custom-header.php';
 
 /**
  * Custom template tags for this theme.
@@ -179,7 +162,4 @@ require get_template_directory() . '/inc/customizer.php';
  */
 require get_template_directory() . '/inc/jetpack.php';
 
-/**
- * Upgrade admin page
- */
-require get_template_directory() . '/inc/upgrade.php';
+require get_template_directory() . '/pt-pro/class-customize.php';

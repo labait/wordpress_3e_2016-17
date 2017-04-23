@@ -1,12 +1,12 @@
 <?php
 /**
- * The header for our theme.
+ * The header for our theme
  *
  * This is the template that displays all of the <head> section and everything up until <div id="content">
  *
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
- * @package draft-portfolio
+ * @package draft_portfolio
  */
 
 ?><!DOCTYPE html>
@@ -15,39 +15,53 @@
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="profile" href="http://gmpg.org/xfn/11">
-<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
 <?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
-<div id="page" class="hfeed site">
+<div id="page" class="site  grid">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'draft-portfolio' ); ?></a>
 
-	<header id="masthead" class="site-header grid" role="banner">
-		
-			<div class="site-branding col-4-12">
+	<header id="masthead" class="site-header" role="banner">
+	<div class="site-branding col-4-12">
+	<h1 class="site-title">
+			<?php
+
+                $output = null;
+
+                if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) {
+                    $output .= get_custom_logo();
+                } else {
+                    $output .= '<a href="'. esc_url( trailingslashit( home_url() ) ).'" title="'.esc_attr( get_bloginfo( 'name' ) ).'" rel="home">';
+                    $output .= get_bloginfo( 'name' );
+                    $output .= '</a>';
+                }
+
+                echo $output; ?>
                 
-    				<hgroup>
-       					<h1 class='site-title'><a href='<?php echo esc_url( home_url( '/' ) ); ?>' title='<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>' rel='home'><?php bloginfo( 'name' ); ?></a></h1>
-    				</hgroup>
+            </h1>
+            <?php
 
-            </div><!-- site-branding -->
+            $description = get_bloginfo( 'description', 'display' );
+            if ( ( function_exists( 'the_custom_logo' ) && ! has_custom_logo() ) && $description || is_customize_preview() ) : ?>
+                <p class="site-description"><?php echo $description; /* WPCS: xss ok. */ ?></p>
+            <?php endif; ?>
+		</div><!-- .site-branding -->
 
-	<div class="col-8-12 push-right cleared">
+		<div class="main-nav col-8-12 pull-right">
+
 		<?php	if (  has_nav_menu( 'primary' ) ) {
 		 wp_nav_menu(array(
         'menu' => 'Main Navigation',
         'container_id' => 'cssmenu',
         'theme_location' => 'primary',
-        'walker' => new Draft_CSS_Menu_Walker()
+        'walker' => new Draft_Portfolio_CSS_Menu_Walker()
     	));	}?>
-    	
-	</div>
-        
-
-    </header><!-- #masthead -->
+    	</div>
+        <?php do_action('draft-welcome-text')?>
+	</header><!-- #masthead -->
 
 
 	<div id="content" class="site-content">
-	<div class="grid">
+

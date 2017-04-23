@@ -1,26 +1,20 @@
-jQuery(function($) {
+/**
+ * Website js scripts init
+ */
 
-$(document).ready(function() {
-  $('#cssmenu').prepend('<div id="menu-button">Menu</div>');
-  $('#cssmenu #menu-button').on('click', function(){
-    var menu = $(this).next('ul');
-    if (menu.hasClass('open')) {
-      menu.removeClass('open');
-    } else {
-      menu.addClass('open');
-    }
-  });
-});
+jQuery( document ).ready(function($) {
+  'use strict';
 
-  
-$(document).ready(function() {
-$('.masonry').masonry({
-  // set itemSelector so .grid-sizer is not used in layout
-  itemSelector: '.item',
-  // use element for option
-  columnWidth: '.item',
-  percentPosition: true
-  }); 
-});
 
-});
+var $container = $('.masonry').imagesLoaded( function() {
+//var $container = $('.masonry');
+$container.imagesLoaded(function(){
+$container.masonry({
+  // options
+  columnWidth: 0,
+  itemSelector: '.grid-item',
+  percentPosition: true,
+  //columnWidth: 200
+});});});
+
+} );

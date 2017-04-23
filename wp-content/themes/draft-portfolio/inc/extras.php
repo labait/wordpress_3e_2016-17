@@ -1,10 +1,10 @@
 <?php
 /**
- * Custom functions that act independently of the theme templates.
+ * Custom functions that act independently of the theme templates
  *
  * Eventually, some of the functionality here could be replaced by core features.
  *
- * @package draft-portfolio
+ * @package draft_portfolio
  */
 
 /**
@@ -19,11 +19,28 @@ function draft_portfolio_body_classes( $classes ) {
 		$classes[] = 'group-blog';
 	}
 
+	// Adds a class of hfeed to non-singular pages.
+	if ( ! is_singular() ) {
+		$classes[] = 'hfeed';
+	}
+
 	return $classes;
 }
 add_filter( 'body_class', 'draft_portfolio_body_classes' );
 
-class Draft_CSS_Menu_Walker extends Walker {
+/**
+ * Add a pingback url auto-discovery header for singularly identifiable articles.
+ */
+function draft_portfolio_pingback_header() {
+	if ( is_singular() && pings_open() ) {
+		echo '<link rel="pingback" href="', esc_url( get_bloginfo( 'pingback_url' ) ), '">';
+	}
+}
+add_action( 'wp_head', 'draft_portfolio_pingback_header' );
+
+
+
+class Draft_Portfolio_CSS_Menu_Walker extends Walker {
 
   var $db_fields = array( 'parent' =>'menu_item_parent', 'id' => 'db_id' );
 
@@ -83,9 +100,40 @@ class Draft_CSS_Menu_Walker extends Walker {
   }
 }
 
-function draft_category(){
 
-$category = get_the_category();
-if ($category) {
-  echo '<a href="' . get_category_link( $category[0]->term_id ) . '" title="' . sprintf( __( "View all posts in %s" ), $category[0]->name ) . '" ' . '>' . $category[0]->name.'</a> ';
-}}
+function draft_portfolio_pagination($pages = '', $range = 2)
+{
+     $showitems = ($range * 2)+1;
+
+     global $paged;
+     if(empty($paged)) $paged = 1;
+
+     if($pages == '')
+     {
+         global $wp_query;
+         $pages = $wp_query->max_num_pages;
+         if(!$pages)
+         {
+             $pages = 1;
+         }
+     }
+
+     if(1 != $pages)
+     {
+         echo "<div class='pagination'>";
+         if($paged > 2 && $paged > $range+1 && $showitems < $pages) echo "<a href='".get_pagenum_link(1)."'>&laquo;</a>";
+         if($paged > 1 && $showitems < $pages) echo "<a href='".get_pagenum_link($paged - 1)."'>&lsaquo;</a>";
+
+         for ($i=1; $i <= $pages; $i++)
+         {
+             if (1 != $pages &&( !($i >= $paged+$range+1 || $i <= $paged-$range-1) || $pages <= $showitems ))
+             {
+                 echo ($paged == $i)? "<span class='current'>".$i."</span>":"<a href='".get_pagenum_link($i)."' class='inactive' >".$i."</a>";
+             }
+         }
+
+         if ($paged < $pages && $showitems < $pages) echo "<a href='".get_pagenum_link($paged + 1)."'>&rsaquo;</a>";
+         if ($paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages) echo "<a href='".get_pagenum_link($pages)."'>&raquo;</a>";
+         echo "</div>\n";
+     }
+}

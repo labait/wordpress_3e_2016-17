@@ -1,6 +1,6 @@
 <?php
 /**
- * The main template file.
+ * The main template file
  *
  * This is the most generic template file in a WordPress theme
  * and one of the two required files for a theme (the other being style.css).
@@ -9,46 +9,50 @@
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
- * @package draft-portfolio
+ * @package draft_portfolio
  */
 
 get_header(); ?>
 
 	<div id="primary" class="content-area">
-		<main id="main" class="site-main masonry cleared" role="main">
+		<main id="main" class="site-main masonry" role="main">
 
-		<?php if ( have_posts() ) : ?>
+		<?php
+		if ( have_posts() ) :
 
-			<?php if ( is_home() && ! is_front_page() ) : ?>
+			if ( is_home() && ! is_front_page() ) : ?>
 				<header>
 					<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
 				</header>
-			<?php endif; ?>
 
-			<?php /* Start the Loop */ ?>
-			<?php while ( have_posts() ) : the_post(); ?>
+			<?php
+			endif;
 
-				<?php
+			/* Start the Loop */
+			while ( have_posts() ) : the_post();
 
-					/*
-					 * Include the Post-Format-specific template for the content.
-					 * If you want to override this in a child theme, then include a file
-					 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-					 */?>
-					<div class="item col-4-12">
-					<?php get_template_part( 'template-parts/content', get_post_format() ); ?>
-					</div>
+				/*
+				 * Include the Post-Format-specific template for the content.
+				 * If you want to override this in a child theme, then include a file
+				 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
+				 */
+				get_template_part( 'template-parts/content','preview' );
 
-			<?php endwhile; ?>
+			endwhile; ?>
 
-			<?php //the_posts_navigation(); ?>
+			<div class="col-1-1 pagination">
+			 <?php next_posts_link(  'Load More', $max_num_pages ); ?>
+             <?php previous_posts_link('Previous') ?>
+</div>
 
-		<?php else : ?>
+		<?php else :
 
-			<?php get_template_part( 'template-parts/content', 'none' ); ?>
+			get_template_part( 'template-parts/content', 'none' );
 
-		<?php endif; ?>
+		endif; ?>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
-<?php get_footer(); ?>
+
+<?php
+get_footer();
