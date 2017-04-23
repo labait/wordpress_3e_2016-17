@@ -20,6 +20,7 @@ function theme_enqueue_styles() {
 
   // FREELANCER STYLE AND CUSTOM CSS
   wp_enqueue_style( 'freelancer-styles', get_stylesheet_directory_uri() . '/css/freelancer.css', array(), $the_theme->get( 'Version' ) );
+  wp_enqueue_style( 'fontawesome-styles', get_stylesheet_directory_uri() . '/vendor/font-awesome/css/font-awesome.css', array(), $the_theme->get( 'Version' ) );
   wp_enqueue_style( 'custom-styles', get_stylesheet_directory_uri() . '/css/custom.css', array(), $the_theme->get( 'Version' ) );
 
   wp_enqueue_script( 'child-understrap-scripts', get_stylesheet_directory_uri() . '/js/child-theme.min.js', array(), $the_theme->get( 'Version' ), true );

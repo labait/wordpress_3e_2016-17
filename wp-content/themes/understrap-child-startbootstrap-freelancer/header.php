@@ -21,8 +21,23 @@ $container = get_theme_mod( 'understrap_container_type' );
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php wp_head(); ?>
+
+	<!-- Temporary navbar container fix -->
+	<style>
+	.navbar-toggler {
+			z-index: 1;
+	}
+
+	@media (max-width: 576px) {
+			nav > .container {
+					width: 100%;
+			}
+	}
+	</style>
 </head>
 
+
+<?php if(FALSE): ?>
 <body <?php body_class(); ?>>
 
 <div class="hfeed site" id="page">
@@ -80,3 +95,40 @@ $container = get_theme_mod( 'understrap_container_type' );
 		</nav><!-- .site-navigation -->
 
 	</div><!-- .wrapper-navbar end -->
+<?php endif; ?>
+
+
+	<body class="index" id="page-top">
+
+    <!-- Navigation -->
+		<nav class="navbar fixed-top navbar-toggleable-md navbar-light" id="mainNav">
+				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarExample" aria-controls="navbarExample" aria-expanded="false" aria-label="Toggle navigation">
+						Menu <i class="fa fa-bars"></i>
+				</button>
+				<div class="container">
+						<a class="navbar-brand" href="#page-top">Start Bootstrap</a>
+						<?php wp_nav_menu(
+							array(
+								'theme_location'  => 'primary',
+								'container_class' => 'collapse navbar-collapse',
+								'container_id'    => 'navbarExample',
+								'menu_class'      => 'navbar-nav ml-auto',
+								'fallback_cb'     => '',
+								'menu_id'         => 'single-page-menu',
+								'walker'          => new WP_Bootstrap_Navwalker(),
+							)
+						); ?>
+				</div>
+		</nav>
+		
+    <!-- Header -->
+    <header class="masthead">
+        <div class="container">
+            <img class="img-fluid" src="img/profile.png" alt="">
+            <div class="intro-text">
+                <span class="name">Start Bootstrap</span>
+                <hr class="star-light">
+                <span class="skills">Web Developer - Graphic Artist - User Experience Designer</span>
+            </div>
+        </div>
+    </header>

@@ -7,51 +7,65 @@
  * @package understrap
  */
 
-$the_theme = wp_get_theme();
-$container = get_theme_mod( 'understrap_container_type' );
 ?>
 
-<?php get_sidebar( 'footerfull' ); ?>
-<div class="wrapper" id="wrapper-footer">
 
-	<div class="<?php echo esc_html( $container ); ?>">
+<!-- Footer -->
+	<footer class="text-center">
+			<div class="footer-above">
+					<div class="container">
+							<div class="row">
+									<div class="footer-col col-md-4">
+											<h3>Location</h3>
+											<p>3481 Melrose Place
+													<br>Beverly Hills, CA 90210</p>
+									</div>
+									<div class="footer-col col-md-4">
+											<h3>Around the Web</h3>
+											<ul class="list-inline">
+													<li class="list-inline-item">
+															<a class="btn-social btn-outline" href="#"><i class="fa fa-fw fa-facebook"></i></a>
+													</li>
+													<li class="list-inline-item">
+															<a class="btn-social btn-outline" href="#"><i class="fa fa-fw fa-google-plus"></i></a>
+													</li>
+													<li class="list-inline-item">
+															<a class="btn-social btn-outline" href="#"><i class="fa fa-fw fa-twitter"></i></a>
+													</li>
+													<li class="list-inline-item">
+															<a class="btn-social btn-outline" href="#"><i class="fa fa-fw fa-linkedin"></i></a>
+													</li>
+													<li class="list-inline-item">
+															<a class="btn-social btn-outline" href="#"><i class="fa fa-fw fa-dribbble"></i></a>
+													</li>
+											</ul>
+									</div>
+									<div class="footer-col col-md-4">
+											<h3>About Freelancer</h3>
+											<p>Freelance is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
+									</div>
+							</div>
+					</div>
+			</div>
+			<div class="footer-below">
+					<div class="container">
+							<div class="row">
+									<div class="col-lg-12">
+											Copyright &copy; Your Website <?php print date("Y"); ?>
+									</div>
+							</div>
+					</div>
+			</div>
+	</footer>
 
-		<div class="row">
+	<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+	<div class="scroll-top hidden-lg-up">
+			<a class="btn btn-primary page-scroll" href="#page-top">
+					<i class="fa fa-chevron-up"></i>
+			</a>
+	</div>
 
-			<div class="col-md-12">
-
-				<footer class="site-footer" id="colophon">
-
-					<div class="site-info">
-
-							<a href="<?php  echo esc_url( __( 'http://wordpress.org/','understrap' ) ); ?>"><?php printf(
-							/* translators:*/
-							esc_html__( 'Proudly powered by %s', 'understrap' ),'WordPress' ); ?></a>
-								<span class="sep"> | </span>
-
-							<?php printf( // WPCS: XSS ok.
-							/* translators:*/
-								esc_html__( 'Theme: %1$s by %2$s.', 'understrap' ), $the_theme->get( 'Name' ), '<a href="http://understrap.com/">understrap.com</a>' ); ?>
-
-							(<?php printf( // WPCS: XSS ok.
-							/* translators:*/
-								esc_html__( 'Version: %1$s', 'understrap' ), $the_theme->get( 'Version' ) ); ?>)
-					</div><!-- .site-info -->
-
-				</footer><!-- #colophon -->
-
-			</div><!--col end -->
-
-		</div><!-- row end -->
-
-	</div><!-- container end -->
-
-</div><!-- wrapper end -->
-
-</div><!-- #page -->
-
-<?php wp_footer(); ?>
-
+	<?php wp_footer(); ?>
 </body>
 
 </html>
