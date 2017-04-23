@@ -3,3 +3,9 @@
 body {
   /*background-color: red;*/
 }
+
+
+section#portfolio .portfolio-link {
+  height: 300px;
+  overflow: hidden;
+}

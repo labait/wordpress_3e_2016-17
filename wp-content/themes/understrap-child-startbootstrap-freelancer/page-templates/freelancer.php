@@ -25,66 +25,19 @@ $upload_dir = wp_upload_dir()['baseurl'];
 				<h2 class="text-center">Portfolio</h2>
 				<hr class="star-primary">
 				<div class="row">
-						<div class="col-sm-4 portfolio-item">
-								<div class="portfolio-link" href="#portfolioModal1" data-toggle="modal">
-										<div class="caption">
-												<div class="caption-content">
-														<i class="fa fa-search-plus fa-3x"></i>
-												</div>
-										</div>
-										<img class="img-fluid" src="<?php echo $upload_dir; ?>/portfolio/cabin.png" alt="">
-								</div>
-						</div>
-						<div class="col-sm-4 portfolio-item">
-								<div class="portfolio-link" href="#portfolioModal2" data-toggle="modal">
-										<div class="caption">
-												<div class="caption-content">
-														<i class="fa fa-search-plus fa-3x"></i>
-												</div>
-										</div>
-										<img class="img-fluid" src="<?php echo $upload_dir; ?>/portfolio/cake.png" alt="">
-								</div>
-						</div>
-						<div class="col-sm-4 portfolio-item">
-								<div class="portfolio-link" href="#portfolioModal3" data-toggle="modal">
-										<div class="caption">
-												<div class="caption-content">
-														<i class="fa fa-search-plus fa-3x"></i>
-												</div>
-										</div>
-										<img class="img-fluid" src="<?php echo $upload_dir; ?>/portfolio/circus.png" alt="">
-								</div>
-						</div>
-						<div class="col-sm-4 portfolio-item">
-								<div class="portfolio-link" href="#portfolioModal4" data-toggle="modal">
-										<div class="caption">
-												<div class="caption-content">
-														<i class="fa fa-search-plus fa-3x"></i>
-												</div>
-										</div>
-										<img class="img-fluid" src="<?php echo $upload_dir; ?>/portfolio/game.png" alt="">
-								</div>
-						</div>
-						<div class="col-sm-4 portfolio-item">
-								<div class="portfolio-link" href="#portfolioModal5" data-toggle="modal">
-										<div class="caption">
-												<div class="caption-content">
-														<i class="fa fa-search-plus fa-3x"></i>
-												</div>
-										</div>
-										<img class="img-fluid" src="<?php echo $upload_dir; ?>/portfolio/safe.png" alt="">
-								</div>
-						</div>
-						<div class="col-sm-4 portfolio-item">
-								<div class="portfolio-link" href="#portfolioModal6" data-toggle="modal">
-										<div class="caption">
-												<div class="caption-content">
-														<i class="fa fa-search-plus fa-3x"></i>
-												</div>
-										</div>
-										<img class="img-fluid" src="<?php echo $upload_dir; ?>/portfolio/submarine.png" alt="">
-								</div>
-						</div>
+					<?php
+						$args = array(
+							 'post_type' => 'work',
+							 'orderby' => 'rand'
+					 );
+					 $query = new WP_Query( $args );
+					?>
+					<?php while ( $query->have_posts() ) : $query->the_post(); ?>
+						<?php get_template_part( 'loop-templates/content', 'work' ); ?>
+					<?php
+						endwhile; // end of the loop.
+						wp_reset_query();
+					?>
 				</div>
 		</div>
 </section>
@@ -158,5 +111,19 @@ $upload_dir = wp_upload_dir()['baseurl'];
 				</div>
 		</div>
 </section>
+
+
+<!-- MODALS -->
+
+<?php
+	$args = array('post_type' => 'work');
+ $query = new WP_Query( $args );
+?>
+<?php while ( $query->have_posts() ) : $query->the_post(); ?>
+	<?php get_template_part( 'loop-templates/modal', 'work' ); ?>
+<?php
+	endwhile; // end of the loop.
+	wp_reset_query();
+?>
 
 <?php get_footer(); ?>
