@@ -18,13 +18,16 @@ function theme_enqueue_styles() {
 
   wp_enqueue_style( 'child-understrap-styles', get_stylesheet_directory_uri() . '/css/child-theme.min.css', array(), $the_theme->get( 'Version' ) );
 
+  // FREELANCER STYLE AND CUSTOM CSS
   wp_enqueue_style( 'freelancer-styles', get_stylesheet_directory_uri() . '/css/freelancer.css', array(), $the_theme->get( 'Version' ) );
   wp_enqueue_style( 'custom-styles', get_stylesheet_directory_uri() . '/css/custom.css', array(), $the_theme->get( 'Version' ) );
 
   wp_enqueue_script( 'child-understrap-scripts', get_stylesheet_directory_uri() . '/js/child-theme.min.js', array(), $the_theme->get( 'Version' ), true );
 
+  // FREELANCER SCRIPTS AND CUSTOM JS
   wp_enqueue_script( 'freelancer-scripts', get_stylesheet_directory_uri() . '/js/freelancer.js', array(), $the_theme->get( 'Version' ), true );
   wp_enqueue_script( 'jqBootstrapValidation-scripts', get_stylesheet_directory_uri() . '/js/jqBootstrapValidation.js', array(), $the_theme->get( 'Version' ), true );
+  wp_enqueue_script( 'custom-scripts', get_stylesheet_directory_uri() . '/js/custom.js', array(), $the_theme->get( 'Version' ), true );
 
 
 }
