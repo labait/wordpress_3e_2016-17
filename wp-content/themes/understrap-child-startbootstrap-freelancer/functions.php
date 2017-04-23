@@ -19,6 +19,8 @@ function theme_enqueue_styles() {
   wp_enqueue_style( 'child-understrap-styles', get_stylesheet_directory_uri() . '/css/child-theme.min.css', array(), $the_theme->get( 'Version' ) );
 
   // FREELANCER STYLE AND CUSTOM CSS
+  wp_enqueue_style( 'font-montserrat-styles', "https://fonts.googleapis.com/css?family=Montserrat:400,700", array(), $the_theme->get( 'Version' ) );
+  wp_enqueue_style( 'font-lato-styles', "https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic", array(), $the_theme->get( 'Version' ) );
   wp_enqueue_style( 'freelancer-styles', get_stylesheet_directory_uri() . '/css/freelancer.css', array(), $the_theme->get( 'Version' ) );
   wp_enqueue_style( 'fontawesome-styles', get_stylesheet_directory_uri() . '/vendor/font-awesome/css/font-awesome.css', array(), $the_theme->get( 'Version' ) );
   wp_enqueue_style( 'custom-styles', get_stylesheet_directory_uri() . '/css/custom.css', array(), $the_theme->get( 'Version' ) );

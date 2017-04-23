@@ -8,6 +8,7 @@
  */
 
 $container = get_theme_mod( 'understrap_container_type' );
+$upload_dir = wp_upload_dir()['baseurl'];
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -120,11 +121,11 @@ $container = get_theme_mod( 'understrap_container_type' );
 						); ?>
 				</div>
 		</nav>
-		
+
     <!-- Header -->
     <header class="masthead">
         <div class="container">
-            <img class="img-fluid" src="img/profile.png" alt="">
+						<img class="img-fluid" src="<?php echo $upload_dir; ?>/profile.png">
             <div class="intro-text">
                 <span class="name">Start Bootstrap</span>
                 <hr class="star-light">
