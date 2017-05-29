@@ -1,4 +1,10 @@
-<div class="portfolio-modal modal fade" id="portfolioModal<?php echo the_ID(); ?>" tabindex="-1" role="dialog" aria-hidden="true">
+
+<?php
+  $upload_dir = wp_upload_dir()['baseurl'];
+  $image = get_field('image');
+?>
+
+ <div class="portfolio-modal modal fade" id="portfolioModal<?php echo the_ID(); ?>" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
@@ -15,7 +21,9 @@
                               <?php the_title(); ?>
                             </h2>
                             <hr class="star-primary">
-                            <img class="img-fluid img-centered" src="img/portfolio/cake.png" alt="">
+                            <img class="img-fluid img-centered" src="<?php print $image['sizes']['large']; ?>" alt="">
+                            <?php //echo print("<pre>".print_r($image['sizes']['large'], TRUE)."</pre>"); ?>
+                            <?php //echo wp_get_attachment_image( get_field('image'), 'large' ); ?>
                             <p>
                               <?php the_content(); ?>
                             </p>

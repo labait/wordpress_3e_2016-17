@@ -42,26 +42,21 @@ $upload_dir = wp_upload_dir()['baseurl'];
 		</div>
 </section>
 
-<!-- About Section -->
-<section class="success" id="about">
-		<div class="container">
-				<h2 class="text-center">About</h2>
-				<hr class="star-light">
-				<div class="row">
-						<div class="col-lg-4 offset-lg-2">
-								<p>Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional LESS stylesheets for easy customization.</p>
-						</div>
-						<div class="col-lg-4">
-								<p>Whether you're a student looking to showcase your work, a professional looking to attract clients, or a graphic artist looking to share your projects, this template is the perfect starting point!</p>
-						</div>
-						<div class="col-lg-8 offset-lg-2 text-center">
-								<a href="#" class="btn btn-lg btn-outline">
-										<i class="fa fa-download"></i> Download Theme
-								</a>
-						</div>
-				</div>
-		</div>
-</section>
+
+<!-- SECTIONS -->
+<?php
+	$args = array('post_type' => 'section');
+ $query = new WP_Query( $args );
+?>
+<?php while ( $query->have_posts() ) : $query->the_post(); ?>
+	<?php get_template_part( 'loop-templates/content', 'section' ); ?>
+<?php
+	endwhile; // end of the loop.
+	wp_reset_query();
+?>
+
+
+
 
 <!-- Contact Section -->
 <section id="contact">
@@ -114,7 +109,6 @@ $upload_dir = wp_upload_dir()['baseurl'];
 
 
 <!-- MODALS -->
-
 <?php
 	$args = array('post_type' => 'work');
  $query = new WP_Query( $args );

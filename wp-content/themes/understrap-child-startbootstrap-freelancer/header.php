@@ -78,17 +78,7 @@ $upload_dir = wp_upload_dir()['baseurl'];
 					} ?><!-- end custom logo -->
 
 				<!-- The WordPress Menu goes here -->
-				<?php wp_nav_menu(
-					array(
-						'theme_location'  => 'primary',
-						'container_class' => 'collapse navbar-collapse',
-						'container_id'    => 'navbarNavDropdown',
-						'menu_class'      => 'navbar-nav',
-						'fallback_cb'     => '',
-						'menu_id'         => 'main-menu',
-						'walker'          => new WP_Bootstrap_Navwalker(),
-					)
-				); ?>
+
 			<?php if ( 'container' == $container ) : ?>
 			</div><!-- .container -->
 			<?php endif; ?>
@@ -107,7 +97,7 @@ $upload_dir = wp_upload_dir()['baseurl'];
 						Menu <i class="fa fa-bars"></i>
 				</button>
 				<div class="container">
-						<a class="navbar-brand" href="#page-top">Start Bootstrap</a>
+						<a class="navbar-brand" href="<?php print get_site_url(); ?>"><?php print get_bloginfo("name"); ?></a>
 						<?php wp_nav_menu(
 							array(
 								'theme_location'  => 'primary',
@@ -127,9 +117,9 @@ $upload_dir = wp_upload_dir()['baseurl'];
         <div class="container">
 						<img class="img-fluid" src="<?php echo $upload_dir; ?>/profile.png">
             <div class="intro-text">
-                <span class="name">Start Bootstrap</span>
+                <span class="name"><?php bloginfo( 'name' ); ?></span>
                 <hr class="star-light">
-                <span class="skills">Web Developer - Graphic Artist - User Experience Designer</span>
+                <span class="skills"><?php bloginfo( 'description' ); ?></span>
             </div>
         </div>
     </header>

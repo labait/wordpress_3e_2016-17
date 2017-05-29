@@ -4,6 +4,7 @@
 ?>
 
 <?php if( !empty($image) ): ?>
+
   <div class="col-sm-4 portfolio-item">
       <div class="portfolio-link" href="#portfolioModal<?php echo the_ID(); ?>" data-toggle="modal" data-backdrop="">
           <div class="caption">
